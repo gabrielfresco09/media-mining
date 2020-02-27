@@ -1,33 +1,38 @@
-<div>
-  <mat-form-field class="example-full-width">
-    <mat-label>Search text in content</mat-label>
-    <input [(ngModel)]="query.text" matInput />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>From</mat-label>
-    <input [(ngModel)]="query.from" matInput [matDatepicker]="pickerFrom" />
-    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-    <mat-datepicker #pickerFrom></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>To</mat-label>
-    <input [(ngModel)]="query.to" matInput [matDatepicker]="pickerTo" />
-    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-    <mat-datepicker #pickerTo></mat-datepicker>
-  </mat-form-field>
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="handleSearchClick()"
-    type="”button”"
-  >
-    Search
-  </button>
+<div class="block-container">
+  <div class="block-inputs">
+    <mat-form-field class="example-full-width">
+      <mat-label>Search text in content</mat-label>
+      <input [(ngModel)]="query.text" matInput />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>From</mat-label>
+      <input [(ngModel)]="query.from" matInput [matDatepicker]="pickerFrom" />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="pickerFrom"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerFrom></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>To</mat-label>
+      <input [(ngModel)]="query.to" matInput [matDatepicker]="pickerTo" />
+      <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+      <mat-datepicker #pickerTo></mat-datepicker>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="handleSearchClick()"
+      type="”button”"
+    >
+      Search
+    </button>
+  </div>
 
   <table mat-table [dataSource]="results" class="mat-elevation-z8">
     <!-- Symbol Column -->
     <ng-container matColumnDef="wid">
-      <th mat-header-cell *matHeaderCellDef>Wid</th>
+      <th class="block-wid" mat-header-cell *matHeaderCellDef>Wid</th>
       <td mat-cell *matCellDef="let element">{{ element.doc.wid }}</td>
     </ng-container>
 
@@ -56,4 +61,10 @@
     [pageSizeOptions]="[10, 20, 30, 40, 50]"
     showFirstLastButtons
   ></mat-paginator>
+  <div class="overlay" *ngIf="isLoading">
+    <div class="center">
+      <mat-progress-spinner color="primary" mode="indeterminate" diameter="50">
+      </mat-progress-spinner>
+    </div>
+  </div>
 </div>

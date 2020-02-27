@@ -17,18 +17,23 @@ export class QueryParser {
       params = params.concat("</words>");
     }
 
+    // setting end time to last minute of selected date
+    query.to.setHours(23);
+    query.to.setMinutes(59);
+    query.to.setSeconds(59);
     params = params.concat(
       `<date begin="${this.formatDate(query.from)}" end="${this.formatDate(
         query.to
       )}"/>`
     );
 
-    const start = pageIndex === 0 ? 1 : pageIndex * pageSize + 1;
-    const end = pageIndex === 0 ? pageSize : (pageIndex + 1) * pageSize;
+    pageIndex++;
+
+    const start = pageIndex === 1 ? pageIndex : pageIndex * pageSize;
+    const end = pageIndex === 1 ? pageSize : pageIndex * pageSize;
     params = params.concat("</and>");
     params = params.concat(`<page start="${start}" end="${end}" returnCount="true" />
     <orderBy type="date" ascending="false" />`);
-    console.log("params", params);
     return params.concat("</params>");
   }
 

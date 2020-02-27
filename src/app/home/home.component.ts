@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ["wid", "pubDate", "language"];
   results: MatTableDataSource<{}>;
   totalCount: number;
+  isLoading: boolean;
 
   constructor(
     private apiService: ApiService,
@@ -58,12 +59,14 @@ export class HomeComponent implements OnInit {
       this.paginator.pageIndex
     );
 
+    this.isLoading = true;
+
     this.apiService
       .queryRequest(params, headers)
       .subscribe((response: { results: []; resultCount: number }) => {
         this.results = new MatTableDataSource<{}>(response.results);
         this.totalCount = response.resultCount;
-        console.log(response);
+        this.isLoading = false;
       });
   }
   getLanguage(fields: [{ name: string; value: string }]): string {
