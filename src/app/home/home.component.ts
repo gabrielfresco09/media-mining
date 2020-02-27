@@ -9,6 +9,8 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { tap } from "rxjs/operators";
 
+import { environment } from "../../environments/environment";
+
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -32,7 +34,9 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit() {
     this.apiService
-      .loginRequest(new LoginPayload("developer", "dFmTk9Jm2qUMeKFa"))
+      .loginRequest(
+        new LoginPayload(environment.apiUser, environment.apiPassword)
+      )
       .subscribe((data: LoginResponse) => {
         this.authToken = data.authToken;
       });
