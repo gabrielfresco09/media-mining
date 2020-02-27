@@ -1,0 +1,7 @@
+{
+  "/MediaMiningBasic/rest/*": {
+    "target": "http://webdemo.sail-labs.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
